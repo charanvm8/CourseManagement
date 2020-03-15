@@ -2,44 +2,30 @@ import React from "react";
 import HomePage from "./HomePage/HomePage";
 import About from "./About/About";
 import Courses from "./Courses/Courses";
+import HeaderLinks from "./Header/Header";
+import NotFound from "./common/404NotFound";
+import { Route, Switch } from "react-router-dom";
 import "./App.css";
+import Course from "./Courses/Course/Course";
 
 function App() {
   function getPage() {
-    let router = window.location.pathname;
-    if (router === "/about") {
-      return <About />;
-    } else if (router === "/courses") {
-      return <Courses />;
-    } else {
-      return <HomePage />;
-    }
+    return (
+      <>
+        <Switch>
+          <Route path="/" exact component={HomePage}></Route>
+          <Route path="/courses" component={Courses}></Route>
+          <Route path="/about" component={About}></Route>
+          <Route path="/course" component={Course}></Route>
+          <Route component={NotFound}></Route>
+        </Switch>
+      </>
+    );
   }
 
   return (
     <>
-      <h1 className="container-fluid header-color">Course Management Course</h1>
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
-        <div className="collapse navbar-collapse" id="navbarNavDropdown">
-          <ul className="navbar-nav">
-            <li className="nav-item">
-              <a className="nav-link" href="/">
-                Home
-              </a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="/courses">
-                Courses
-              </a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="/about">
-                About
-              </a>
-            </li>
-          </ul>
-        </div>
-      </nav>
+      <HeaderLinks />
       {getPage()}
     </>
   );
